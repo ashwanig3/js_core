@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>grid</title>
+	<link rel="stylesheet" type="text/css" href="assets/main.css">
+</head>
+<body>
+	<div class="container"></div>
+
+	<script type="text/javascript">
+		var col = 10;
+		var row = 10;
+		var bool = true;
+		var mainContainer = document.querySelector(".container");
+		
+
+		for(var i = 1; i <= 10; i++){
+			for(var j = 1; j <= 10; j++){
+				mainContainer.innerHTML  += `<div class="cell" data-row = ${i} data-col = ${j}></div>`;
+				
+			}
+		}
+
+	function changeColor() {
+		var box = document.querySelectorAll(".cell");
+			for(var x=0; x<100; x++){
+				var element = box[x];
+				var row = Number(element.dataset.row);
+				var col = Number(element.dataset.col);
+				// console.log(row, col);
+				var isOdd = (row + col) % 2 === 1;
+				if((row+col) % 2 == bool){
+					element.classList.add("lime");
+					} else {
+						element.classList.remove("lime");
+					}
+
+			}
+			bool = !bool;
+
+
+		}
+		// changeColor();
+		setInterval(changeColor, 500);
+
+
+		
+	</script>
+</body>
+</html>
