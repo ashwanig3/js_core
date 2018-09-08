@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+</head>
+<body>
+  <div class="calc">
+    <div class="window"></div>
+    <div class="buttons">
+      <button class="btn equals" id="AC">AC</button>
+      <button class="btn" id="CE">CE</button>
+
+      <button class="btn">%</button>
+      <!--   second row   -->
+      <button class="btn" id="seven">7</button>
+      <button class="btn" id="eight">8</button>
+      <button class="btn" id="nine">9</button>
+      <button class="btn" id="multiply">*</button>
+      <!--   third row   -->
+      <button class="btn" id="">4</button>
+      <button class="btn">5</button>
+      <button class="btn">6</button>
+      <button class="btn">+</button>
+      <!--   fourth row   -->
+      <button class="btn">1</button>
+      <button class="btn">2</button>
+      <button class="btn">3</button>
+      <button class="btn">-</button>
+      <!--   fifth row   -->
+      <button class="btn">0</button>
+      <button class="btn">.</button>
+      <button class="btn equals">=</button>
+
+    </div>
+
+  </div>
+  <script type="text/javascript">
+    var buttons = document.body.querySelectorAll('.btn');
+    var output = document.querySelector('.window');
+
+    var operator = ['*', '÷', '-', '+', '%'];
+    var numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    var forRefresh = ['AC']; 
+ 
+    // store all inputs
+    var inputs = [];
+
+    function isNumOrOperator(input) {
+      var currentInputType;
+
+      if(numbers.indexOf(input) == -1) {
+        currentInputType = 'operator';
+      } else {
+        currentInputType = 'number';
+      }
+
+      return currentInputType;
+    }
+
+    // Display it on window
+    function display(currentInput) {
+
+      if(!currentInput) {
+        return output.innerHTML = inputs.join(" ");
+      }
+
+      // find out whether the currentInput is number or operator
+      var currentInputType = isNumOrOperator(currentInput);
+
+      // find out the last input type
+      var lastInputType = isNumOrOperator(inputs[inputs.length - 1]);
+
+      // if the last input was operator & currentInput is number then will add it to window
+      if(lastInputType == 'operator' && currentInputType == 'number') {
+        inputs.push(currentInput);
+      }
+
+      // if the last input was operator & currentInput is operator then don't add it to window or inputs
+      if(lastInputType == 'operator' && currentInputType == 'operator') {
+        // inputs.push(currentInput);
+      }
+
+      // if the last input is number & current number is also a number then concate
+      if(lastInputType == 'number' && currentInputType == 'number') {
+        inputs[inputs.length - 1] = inputs[inputs.length - 1] + currentInput;
+      }
+
+      // if tje last input is number & current input is operator then add it to window and inputs
+      if(lastInputType == 'number' && currentInputType == 'operator') {
+        inputs.push(currentInput);
+      }
+
+      //if the current input is AC then refresh the page
+      if(currentInputType == 'forRefresh'){
+        inputs = inputs.length * 0;
+      }
+      
+      output.innerHTML = inputs.join(" ");
+    }
+
+    // BODMAS
+    // input array - return new array
+    // operation
+    function operate(inputs, operator, posOfOperator) {
+      var firstArr = inputs.slice(0, posOfOperator - 1);
+      var secondArr = inputs.slice(posOfOperator + 2, inputs.length);
+
+      switch(operator) {
+        case '+':
+          firstArr.push(Number(inputs[posOfOperator - 1]) + Number(inputs[posOfOperator + 1]));
+          break;
+        case '-':
+          firstArr.push(Number(inputs[posOfOperator - 1]) - Number(inputs[posOfOperator + 1]));
+          break;
+        case '*':
+          firstArr.push(Number(inputs[posOfOperator - 1]) * Number(inputs[posOfOperator + 1]));
+          break;
+        case '%':
+          firstArr.push(Number(inputs[posOfOperator - 1]) / Number(inputs[posOfOperator + 1]));
+          break;
+      }
+
+      var newInputs = firstArr.concat(secondArr);
+
+      return newInputs;
+    }
+
+  
+    function calculate(inputs) {
+      // find if divide operator is involved in operation
+      var newInputs = [];
+
+      var posOfDivide = inputs.indexOf("%"); 
+      var posOfMultiply = inputs.indexOf("*"); 
+      var posOfAddition = inputs.indexOf("+"); 
+      var posOfSubstration = inputs.indexOf("-"); 
+
+      console.log(inputs, "first inputs value")
+
+      // Divide calculate
+      // Fresh array after calucaltions and assign it to newInputs;
+      if(posOfDivide !== -1) {
+        return calculate(operate(inputs, '%', posOfDivide));
+      }
+
+      // Multipy Calculate
+      // Fresh array after calucaltions and assign it to newInputs;
+      if(posOfMultiply !== -1) {
+        return calculate(operate(inputs, '*', posOfMultiply));
+      }
+
+      // Addition Calculate
+      // Fresh array after calucaltions and assign it to newInputs;
+      if(posOfAddition !== -1) {
+        return calculate(operate(inputs, '+', posOfAddition));
+      }
+
+      // Substraction Calculate
+      // Fresh array after calucaltions and assign it to newInputs;
+      if(posOfSubstration !== -1) {
+        return calculate(operate(inputs, '-', posOfSubstration));
+      }
+
+      if(inputs.length == 1) {
+        console.log(inputs, 'in final block')
+        return output.innerHTML = inputs[0];
+      }
+
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click" , event => {
+
+        var currentInput = event.target.innerHTML;
+
+        if (currentInput == "=") {
+          // calculate the result of inputs 
+          if(isNumOrOperator(inputs[inputs.length - 1]) == 'operator') {
+            inputs.pop();
+          }
+
+          calculate(inputs);
+        } else if (currentInput == 'AC') {
+          inputs = [];
+          display();
+        } else if (currentInput == 'CE') {
+          inputs.pop();
+          display();
+        } else {
+          display(currentInput);
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
