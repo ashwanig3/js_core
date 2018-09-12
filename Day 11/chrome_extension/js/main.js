@@ -1,27 +1,20 @@
-var toDoList =[
-{
-	name: "JS DOM",
-	done:false
-}
-
-
-];
+var toDoList =  [];
 
 var ulElement = document.querySelector(".to_do_list ul");
 var addBtn = document.getElementById("addBtn");
 var todoValue = document.getElementById("todoValue");
-// var checkTask = document.getElementById("checkTask");
-var checkToDoItem = document.querySelectorAll("ul");
-// console.log(ulElement);
+var deleteTodo = document.querySelector("ul");
+var heading = document.getElementById("welcome");
 
 
 
-function displayToDo(todoItems,elem){
-	elem.innerHTML = todoItems.map((todoItem, i) => {
+function displayToDo(toDoList = [],elem){
+	ulElement.innerHTML = toDoList.map((todoItem, i) => {
 		return (
 			`<li>
-				<input type = "checkbox" data-id=${i} />
+				<input class="checkedItem" type = "checkbox" data-id=${i} />
 				<span class="todo-item" data-id=${i}>${todoValue.value}</span>
+				<span class="deleteItem" data-id=${i}>&#215;</span>
 			</li>`
 			)
 	}).join('');
@@ -36,18 +29,41 @@ function addTodoItem(e) {
 		done: false
 	}
 	toDoList.push(obj);
+	localStorage.setItem('to-do-list', JSON.stringify(toDoList));
 	displayToDo(toDoList,ulElement);
+	
 	todoValue.value = "";
 }
 
-//function for the checked item
 
-// function checkedTask(e) {
-// 	if(e.target.dataset.id.checked) {
-		
-// 	}
-// }
+
+
+function deleteTodoItem(e) {
+	  if(e.target.className !== 'deleteItem') return;
+	  	let id = e.target.dataset.id;
+  		toDoList.splice(id, 1);
+  		displayToDo(toDoList, ulElement);
+}
+
+
+function setExactTime() {
+	var time = new Date;
+
+	var hours = time.getHours();
+	var minutes = time.getMinutes();
+	var seconds = time.getSeconds();
+
+	var time = document.getElementById('time');
+	time.innerHTML = hours + ':' + minutes + ':' + seconds;
+
+
+
+}
+setInterval(setExactTime, 1000);
 
 addBtn.addEventListener('click' , addTodoItem);
-// checkToDoItem.addEventListener('click' ,checkedTask);
+deleteTodo.addEventListener('click' , deleteTodoItem);
+
+
+
 

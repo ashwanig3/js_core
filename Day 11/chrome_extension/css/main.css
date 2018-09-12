@@ -76,3 +76,25 @@ ul li{
 	border-bottom: 1px solid black;
 	padding: 5px;
 }
+.deleteItem{
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
+}
+.checkedItem[type=checkbox] + span {
+	text-decoration: none;
+}
+
+
+.checkedItem[type=checkbox]:checked + span {
+	text-decoration: line-through;
+} 
+#welcome{
+	color: white;
+	font-size: 60px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50% , -50%);
+	text-align: center;
+}
