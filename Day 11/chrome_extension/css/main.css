@@ -90,11 +90,25 @@ ul li{
 	text-decoration: line-through;
 } 
 #welcome{
-	color: white;
-	font-size: 60px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50% , -50%);
+}
+#time, #heading{
+	color: white;
+	font-size: 50px;
+	font-weight: 300;
 	text-align: center;
+}
+#time {
+	font-size: 6rem;
+	font-weight: 600;
+}
+#randomquotes{
+	color: white;
+	text-align: center;
+	margin-top: 10px;
+	font-size: 1.5rem;
+	line-height: 1.5rem;
 }
