@@ -28,24 +28,44 @@
   //     this.speed = mph;
   //     return this.driver + ' driving at ' + mph + ' miles per hour';
   //   };
-  var Truck = { _proto_: Car };
- 
+  var Truck = {
+
+    new Vehicle(),
 
     this.loadCargo = function(cargo) {
       this.cargo.push(cargo);
       return this;
-    };
+    },
 
     this.unloadCargo = function() {
       return this.cargo.pop();
-    };
+    }
+  
+  };
+ 
+
   
 
 
-
-
-
-
-
-
 // Create an object called Teacher derived from the Person class, and implement a method called teach which receives a string called subject, and prints out.
+
+
+class Person {
+
+  constructor(name,subject){
+  this.name = name;
+  this.subject = subject;
+  }
+
+
+  teach(){
+
+    console.log(`${this.name} teaches ${this.subject}`)
+  
+  }
+
+}
+
+var teacher = new Person("ashwani","javascript");
+
+teacher.teach();
