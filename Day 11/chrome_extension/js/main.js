@@ -1,16 +1,15 @@
 
 var toDoList =  JSON.parse(localStorage.getItem('to-do-list')) || [];
-
 var ulElement = document.querySelector(".to_do_list ul");
 var addBtn = document.getElementById("addBtn");
 var todoValue = document.getElementById("todoValue");
 var deleteTodo = document.querySelector("ul");
 var heading = document.getElementById("heading");
 var randomQuotes = document.getElementById("randomquotes");
+var background = document.querySelector('.hero');
 
 
 //Function to displayToDo items
-
 function displayToDo(toDoList = [],elem){
 	ulElement.innerHTML = toDoList.map((todoItem, i) => {
 		return (
@@ -19,13 +18,11 @@ function displayToDo(toDoList = [],elem){
 				<span class="todo-item" data-id=${i}>${todoItem.name}</span>
 				<span class="deleteItem" data-id=${i}>&#215;</span>
 			</li>`
-			)
+		)
 	}).join('');
 };
 
 //function to add todoitem
-
-
 function addTodoItem(e) {
 	e.preventDefault();
 	let todoItem = todoValue.value;
@@ -77,7 +74,7 @@ function setExactTime() {
 	
 	toShowMsg(hours);
 	};
-setExactTime();
+setInterval(setExactTime, 1000);
 
 
 
@@ -108,6 +105,17 @@ function setTrue(e) {
 	toDoList[id].done = !toDoList[id].done;
 	localStorage.setItem('to-do-list', JSON.stringify(toDoList));
 }
+
+
+//Function to setBackground randomly
+function setBackground() {
+  var url = `https://api.unsplash.com/photos/random/?client_id=a5ee85d6250580b8181cc258d86640511b11a5ab5d2ea254dd26e54ee7ff44c7`;
+  fetch(url).then(data => data.json()).then(resp => {
+    background.style.backgroundImage = `url(${resp.urls.regular})`;
+  });
+}
+setBackground();
+// setInterval(setBackground, 10000);
 
 
 //Add event listener
