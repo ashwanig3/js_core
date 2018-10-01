@@ -1,0 +1,97 @@
+body {
+	background-color: brown;
+	margin: 0;
+	padding: 0;
+}
+.wrapper {
+	background-image: url(../assets/1.jpg);
+	height: 50vh;
+	background-size: contain;
+	background-position: center;
+	margin: 0;
+	vertical-align: top;
+	background-attachment: fixed;
+	/*background-repeat: no-repeat;*/
+}
+.hero {
+	position: absolute;
+	left: 200px;
+	top: 50px;
+}
+.wrapper-header {
+	font-size: 60px;
+	font-weight: 600;
+	margin: 0;
+}
+.search {
+	margin: 3rem 13rem;
+}
+.search-header {
+	color: #1E90FF;
+	font-size: 15px;
+}
+
+.gallery {
+	margin: 0 auto;
+	width: 40%;
+}
+img{
+	width: 40vw;
+	height: 50vh;
+}
+.dog-name {
+	text-align: center;
+	text-transform: uppercase;
+	color: #1E90FF;
+}
+.dogs-breed {
+	width: 20%;
+	text-align: center;
+	background-color: brown;
+	border: 2px solid #1E90FF;
+	border-radius: 5px;
+}
+button {
+	background-color: #1E90FF;
+	width: 100px;
+	margin-left: 10px;
+}
+/*
+
+spinner*/
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+  }
+  .lds-ring div {
+    box-sizing: border-box;
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    margin: 15px;
+    border: 3px solid #fcf;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+  }
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
