@@ -83,7 +83,7 @@ function collisionDetection() {
     for(var j = 0; j < 3; j++) {
       var b = bricks[i][j];
       if(b.status == 1) {
-        if(ball.x + ball.radius > b.x && ball.x + ball.radius < b.x + 75 && ball.y + ball.radius > b.y && ball.y + ball.radius < b.y + 20) {
+        if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + 75 && ball.y + ball.radius > b.y && ball.y - ball.radius < b.y + 20) {
           ball.dy = -ball.dy;
           b.status = 0;
           score++;
@@ -177,7 +177,7 @@ function Ball(x,y,dx,dy,radius) {
   c.fillText("Lives: "+lives,canvas.width-65,20)
  }
  
-//Fnction to animate game
+//Function to animate GAME
 
 function animate() {
   requestAnimationFrame(animate);
