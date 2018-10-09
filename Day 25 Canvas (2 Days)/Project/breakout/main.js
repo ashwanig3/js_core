@@ -1,7 +1,4 @@
 var canvas = document.getElementById("myCanvas");
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
-
 var c = canvas.getContext('2d');
 var brickPadding = 10;
 var brickOffsetLeft = 30;
@@ -11,27 +8,28 @@ var paddleHeight = 10;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
-var x = canvas.width/2;
-var y = canvas.height - 30;
-var dx = 2;
-var dy= -2;
+var score = 0;
+var lives = 3;
+var ball = new Ball(canvas.width/2,canvas.height-10,3,3,10);
 
-
-// var mouse ={
-//   x:undefined,
-//   y:undefined
-// }
-// document.addEventListener("mousemove", event => {
-//   mouse.x = event.x;
-//   mouse.y = event.y;
-// })
-
+//Add Event listener 
 document.addEventListener("keydown", keyDownHandler,false);
 document.addEventListener("keyup", keyUpHandler,false);
+document.addEventListener("mousemove", mouseMoveHandler, false);
 
+//Function for Mouse move
+
+function mouseMoveHandler(e) {
+  var relativeX = e.clientX - canvas.offsetLeft;
+  if(relativeX > 0 && relativeX < canvas.width) {
+    paddleX = relativeX - paddleWidth/2;
+  }
+
+}
+
+//Fuction for keydown
 
 function keyDownHandler(e) {
-  console.log(e);
   if(e.keyCode == 39) {
     rightPressed = true;
   }else if(e.keyCode == 37) {
@@ -39,6 +37,8 @@ function keyDownHandler(e) {
   }
 
 }
+
+//Function for keyup
 
 function keyUpHandler(e){
   if(e.keyCode == 39) {
@@ -55,6 +55,8 @@ for(var i=0; i< 5; i++) {
         bricks[i][j] = { x: 0, y: 0, status:1};
     }
 }
+
+//Function to draw bricks
 
 function drawBricks() {
   for(var i = 0; i < 5; i++) {
@@ -74,19 +76,30 @@ function drawBricks() {
   }
 }
 
+//Function for collision detection
+
 function collisionDetection() {
   for(var i = 0; i < 5; i++) {
     for(var j = 0; j < 3; j++) {
-      var b = bricks[i][j]
+      var b = bricks[i][j];
       if(b.status == 1) {
-        if(x > b.x && x < b.x + 75 && y > b.y && y < b.y + 20) {
-          dy = -dy;
+        if(ball.x + ball.radius > b.x && ball.x + ball.radius < b.x + 75 && ball.y + ball.radius > b.y && ball.y + ball.radius < b.y + 20) {
+          ball.dy = -ball.dy;
           b.status = 0;
+          score++;
+         if(score == 3 * 5) {
+            alert("YOU WIN, CONGRATULATIONS!");
+            document.location.reload();
+         }
+
         }
       }
     }
   }
 }
+
+
+//Function to draw paddle
 
 function drawPaddle() {
   c.beginPath();
@@ -96,6 +109,7 @@ function drawPaddle() {
   c.closePath();
 }
 
+//Function to draw and update ball
 
 function Ball(x,y,dx,dy,radius) {
   this.x = x;
@@ -122,15 +136,48 @@ function Ball(x,y,dx,dy,radius) {
     if(this.y + this.radius > canvas.height || this.y - this.radius < 0) {
       this.dy = -this.dy;
     }
-    
+     else if(ball.y + ball.dy > canvas.height-ball.radius) {
+    if(ball.x > paddleX && ball.x < paddleX + paddleWidth) {
+        ball.dy = -ball.dy;
+    }
+    else {
+      lives--;
+      if(lives == 0) {
+        alert("GAME OVER");
+        document.location.reload();
+      }
+      else {
+        ball.x = canvas.width/2;
+        ball.y = canvas.height-30;
+        ball.dx = 3;
+        ball.dy = -3;
+        paddleX = (canvas.width-paddleWidth)/2;
+      }
+    }
+}
     this.x += this.dx;
     this.y += this.dy;
     this.draw();
   }
 }
- 
-  var ball = new Ball(100,100,3,3,10);
 
+//Function to draw score
+ 
+ function drawScore() {
+  c.font = "16px Arial";
+  c.fillStyle = "#0095DD";
+  c.fillText("Score: "+score, 8, 20);
+}
+ 
+//Function to draw lives
+
+ function drawLives() {
+  c.font = "16px Arial";
+  c.fillStyle = "#0095DD";
+  c.fillText("Lives: "+lives,canvas.width-65,20)
+ }
+ 
+//Fnction to animate game
 
 function animate() {
   requestAnimationFrame(animate);
@@ -139,6 +186,8 @@ function animate() {
   ball.update();
   drawPaddle();
   collisionDetection();
+  drawScore();
+  drawLives();
 
   if(rightPressed && paddleX < canvas.width-paddleWidth) {
         paddleX += 7;
