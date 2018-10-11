@@ -1,0 +1,46 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+}
+.header {
+	background-color: blue;
+	/*padding: 10px;*/
+	display: grid;
+	grid-template-columns: 30% 45% 25%;
+}
+.header h1{
+	font-family: 'Charmonman', cursive;
+	text-align: center;
+	color: white;
+}
+
+.create-board {
+	display: flex;
+	padding: 5px;
+}
+.create-board__item {
+	margin-left: 5px;
+}
+.top-nav-left,
+.top-nav-right {
+	display: flex;
+}
+.top-nav-left__item,
+.top-nav-right__item {
+	list-style: none;
+	margin:10px 0 0 10px;
+	background-color: rgba(255,255,255,0.4);
+	padding: 5px;
+	border: none;
+	font-size: 1.5rem;
+}
+.board-heading {
+	text-transform: uppercase;
+}
+.list-container {
+	padding: 20px;
+	border: 1px solid grey;
+	width: 200px;
+	height: 200px;
+	display: none;
+}
