@@ -1,6 +1,7 @@
 var createBoardLink = document.querySelector(".create-board");
 var addInput = document.querySelector(".add-input");
 var addList = document.querySelector(".add-list");
+var listContainer = document.querySelector(".list-container");
 
 var allBoards = [];
 
@@ -87,7 +88,7 @@ function renderedBoard(e) {
 	var boardTitle = document.querySelector(".board-title");
 	let board = new Board(boardTitle.value);
 	board.addBoard();
-		addList.innerHTML = `<h2 class="board-heading">${board.name}</h2>
+		addList.innerHTML += `<h2 class="board-heading">${board.name}</h2>
 												<input class="list-input"5 type="text" name="add-list" placeholder="+Add a list">
 												<button class="list-input-btn">submit</button>`;
 	
@@ -101,14 +102,35 @@ function addListBoard(e) {
 	var listInput = document.querySelector(".list-input");
 	let list = new List(listInput.value);
 	list.addList();
-	var listContainer = document.querySelector(".list-container");
 	listContainer.style.display = "block";
 	listContainer.innerHTML = `<h4 class="list-item-heading">${list.name}</h4>
-															<div class="add-board">+Add Board</div>`
+															<div class="add-board">+Add Card</div>`
 }
 
+function createCards(e) {
+	if(e.target.className !== 'add-board') return;
+	e.preventDefault();
+	listContainer.innerHTML += `<div class="card-container">
+															<input class="card-input" type="text">
+															<button class = "submit-cards">submit</button>
+															</div>`
+}
+
+function displayCards(e) {
+	if(e.target.className !== 'submit-cards') return;
+	e.preventDefault();
+	var cardInput = document.querySelector(".card-input");
+	let card = new Cards(cardInput.value);
+	card.addCards();
+	listContainer.innerHTML += `<div class="card-desc">
+															<p class="card-name">${card.name}</p>
+															<i class="fas fa-pencil-alt"></i>
+															</div>`;
+}
 
 
 createBoardLink.addEventListener("click", addBoardTitle);
 addInput.addEventListener("click" , renderedBoard);
 addList.addEventListener("click", addListBoard);
+listContainer.addEventListener("click" , createCards);
+listContainer.addEventListener("click", displayCards);

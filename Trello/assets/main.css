@@ -38,9 +38,13 @@
 	text-transform: uppercase;
 }
 .list-container {
-	padding: 20px;
+	padding: 10px;
 	border: 1px solid grey;
 	width: 200px;
-	height: 200px;
+	/*height: 200px;*/
 	display: none;
+}
+.card-desc {
+	display: flex;
+	justify-content: space-between;
 }
