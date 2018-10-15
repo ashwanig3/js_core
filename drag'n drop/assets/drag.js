@@ -11,8 +11,6 @@ items.forEach(item => {
 
 function dragStart (e) {
   dragValue = this;
-  console.log(dragValue);
-  // e.dataTransfer.setData('text/plain' , e.target.id);
   e.dataTransfer.dropEffect = "copy";
 }
 
