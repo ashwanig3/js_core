@@ -1,0 +1,16 @@
+#items-list {
+	margin: 0 auto;
+	width: 30%;
+}
+li {
+  list-style:none;
+  border: 2px solid grey;
+  width:200px;
+  text-align:center;
+  cursor: pointer;
+  margin:10px;
+  border-radius: 5px;
+}
+li:hover {
+  background-color:lightgrey;
+}
