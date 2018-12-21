@@ -10,7 +10,7 @@ var background = document.querySelector('.hero');
 
 
 //Function to displayToDo items
-function displayToDo(toDoList = [],elem){
+function displayToDo(toDoList = [], elem) {
 	ulElement.innerHTML = toDoList.map((todoItem, i) => {
 		return (
 			`<li>
@@ -35,30 +35,25 @@ function addTodoItem(e) {
 
 
 //Function to delete todoItem
-
-
 function deleteTodoItem(e) {
 	  if(e.target.className !== 'deleteItem') return;
 	  	let id = e.target.dataset.id;
   		toDoList.splice(id, 1);
   		displayToDo(toDoList, ulElement);
   		localStorage.setItem('to-do-list', JSON.stringify(toDoList));
-  		
-}
+  }
+
 
 //Function toShowQuotes
-
 function toShowQuotes() {
 	var randomNum = Math.floor(Math.random() * quotes.length);
 	randomQuotes.innerHTML = `"${quotes[randomNum].quote}"`;
 }
 
 //Function to setExactTime 
-
 function setExactTime() {
 	var time = new Date;
-
-	var hours = time.getHours();
+  var hours = time.getHours();
 	var minutes = time.getMinutes();
 	var seconds = time.getSeconds();
 
@@ -71,19 +66,16 @@ function setExactTime() {
    
 	var time = document.getElementById('time');
 	time.innerHTML = hours + ':' + minutes;
-	
 	toShowMsg(hours);
-	};
+  };
+  
 setInterval(setExactTime, 1000);
 
 
 
 //Function toShowMsg
-
 function toShowMsg(hours) {
-
-	var heading = document.getElementById("heading");
-	// var name = prompt('What’s your name?');
+  var heading = document.getElementById("heading");
 
 	if(hours >= 0 && hours <= 12) {
 		heading.innerHTML = `Good Morning`;
@@ -97,7 +89,6 @@ function toShowMsg(hours) {
 };
 
 //Function to setTrue in checkbox
-
 function setTrue(e) {
 	if(e.target.className !== 'checkedItem') return;
 	var id = e.target.dataset.id;
@@ -112,14 +103,14 @@ function setBackground() {
   var url = `https://api.unsplash.com/photos/random/?client_id=a5ee85d6250580b8181cc258d86640511b11a5ab5d2ea254dd26e54ee7ff44c7`;
   fetch(url).then(data => data.json()).then(resp => {
     background.style.backgroundImage = `url(${resp.urls.regular})`;
+    background.style.backgroundSize = 'cover';
+    background.style.backgroundPosition = 'center';
   });
 }
 setBackground();
-// setInterval(setBackground, 10000);
 
 
 //Add event listener
-
 addBtn.addEventListener('click' , addTodoItem);
 deleteTodo.addEventListener('click' , deleteTodoItem);
 deleteTodo.addEventListener('click' , setTrue);
