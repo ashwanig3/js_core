@@ -1,0 +1,48 @@
+body {
+    background-color: gray;
+}
+form {
+    width: 30%;
+    margin: 0 auto;
+}
+input {
+    width: 100%;
+    border-radius: 4px;
+    padding: 10px;
+    border: .5px solid blue;
+
+}
+form button {
+    width: 20%;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border: .5px solid blue;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+form button:hover {
+    background-color: blue;
+    color: white;
+}
+ol {
+    width: 35%;
+    margin: 30px auto;
+}
+li {
+    display: flex;
+    justify-content: space-between;
+    border: .5px solid lightgray;
+    padding: 10px;
+    width: 100%;
+    background-color: white;
+}
+li button {
+    background-color: blue;
+    border: .5px solid blue;
+    padding: 5px;
+    color: white;
+}
+.search-form {
+    margin-bottom: 30px;
+}
